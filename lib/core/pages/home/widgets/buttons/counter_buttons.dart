@@ -26,12 +26,16 @@ class CounterButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final buttonSpacing = (screenWidth * 0.06).clamp(16.0, 32.0);
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      padding: EdgeInsets.all((screenWidth * 0.04).clamp(8.0, 16.0)),
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        spacing: buttonSpacing,
+        runSpacing: buttonSpacing * 0.5,
         children: [
-          FloatingActionButton(
+          FloatingActionButton.extended(
             heroTag: 'inc',
             foregroundColor: Colors.white,
             backgroundColor: Colors.indigo.shade500,
@@ -42,10 +46,10 @@ class CounterButtons extends StatelessWidget {
               Vibration.vibrate(duration: 50);
               controller.incrementCounter();
             },
-            child: const Icon(Icons.add),
+            icon: const Icon(Icons.add),
+            label: const Text('Add'),
           ),
-          const SizedBox(width: 30),
-          FloatingActionButton(
+          FloatingActionButton.extended(
             heroTag: 'reset',
             foregroundColor: Colors.white,
             backgroundColor: Colors.purple.shade500,
@@ -70,17 +74,18 @@ class CounterButtons extends StatelessWidget {
                 ),
               );
             },
-            child: const Icon(Icons.restart_alt),
+            icon: const Icon(Icons.restart_alt),
+            label: const Text('Reset'),
           ),
-          const SizedBox(width: 30),
-          FloatingActionButton(
+          FloatingActionButton.extended(
             heroTag: 'dec',
             foregroundColor: Colors.white,
             backgroundColor: Colors.pink.shade500,
             elevation: 12,
             tooltip: 'Decrement',
             onPressed: () => _decrementCounter(context),
-            child: const Icon(Icons.remove),
+            icon: const Icon(Icons.remove),
+            label: const Text('Subtract'),
           ),
         ],
       ),

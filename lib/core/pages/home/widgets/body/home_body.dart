@@ -12,10 +12,15 @@ class HomeBody extends StatelessWidget {
     return AnimatedBuilder(
       animation: controller.model,
       builder: (context, child) {
+        final screenWidth = MediaQuery.of(context).size.width;
+        final responsivePadding = EdgeInsets.symmetric(
+          horizontal: screenWidth * 0.08,
+          vertical: 24,
+        );
         return Center(
           child: Container(
-            padding: const EdgeInsets.all(24),
-            margin: const EdgeInsets.all(32),
+            padding: responsivePadding,
+            margin: EdgeInsets.all(screenWidth * 0.06),
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(24),
@@ -38,17 +43,19 @@ class HomeBody extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          'Step: ${controller.model.step}',
-                          style: const TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
+                        Flexible(
+                          child: Text(
+                            'Step: ${controller.model.step}',
+                            style: const TextStyle(
+                              fontSize: 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         const SizedBox(width: 16),
                         SizedBox(
-                          width: 80,
+                          width: (screenWidth * 0.22).clamp(80.0, 120.0),
                           child: TextField(
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(

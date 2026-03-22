@@ -30,6 +30,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -55,7 +56,10 @@ class _HomePageState extends State<HomePage> {
         ),
         child: SafeArea(child: HomeBody(controller: controller)),
       ),
-      floatingActionButton: CounterButtons(controller: controller),
+      floatingActionButton: Padding(
+        padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.06),
+        child: CounterButtons(controller: controller),
+      ),
     );
   }
 }
