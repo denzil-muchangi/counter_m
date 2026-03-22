@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:vibration/vibration.dart';
 import '../../controller/home_controller.dart';
 
 class CounterButtons extends StatelessWidget {
@@ -7,7 +9,9 @@ class CounterButtons extends StatelessWidget {
   final HomeController controller;
 
   void _decrementCounter(BuildContext context) {
-    if (controller.model.value > 0) {
+    HapticFeedback.lightImpact();
+    Vibration.vibrate(duration: 50);
+    if (controller.model.value >= controller.model.step) {
       controller.decrementCounter();
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -28,20 +32,54 @@ class CounterButtons extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           FloatingActionButton(
-            onPressed: controller.incrementCounter,
+            heroTag: 'inc',
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.indigo.shade500,
+            elevation: 12,
             tooltip: 'Increment',
+            onPressed: () {
+              HapticFeedback.lightImpact();
+              Vibration.vibrate(duration: 50);
+              controller.incrementCounter();
+            },
             child: const Icon(Icons.add),
           ),
           const SizedBox(width: 30),
           FloatingActionButton(
-            onPressed: controller.resetCounter,
+            heroTag: 'reset',
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.purple.shade500,
+            elevation: 12,
             tooltip: 'Reset to Zero',
+            onPressed: () {
+              HapticFeedback.lightImpact();
+              Vibration.vibrate(duration: 50);
+              final oldValue = controller.model.value;
+              controller.resetCounter();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: const Text('Reset to zero!'),
+                  duration: const Duration(seconds: 4),
+                  behavior: SnackBarBehavior.floating,
+                  action: SnackBarAction(
+                    label: 'Undo',
+                    onPressed: () {
+                      controller.model.value = oldValue;
+                    },
+                  ),
+                ),
+              );
+            },
             child: const Icon(Icons.restart_alt),
           ),
           const SizedBox(width: 30),
           FloatingActionButton(
-            onPressed: () => _decrementCounter(context),
+            heroTag: 'dec',
+            foregroundColor: Colors.white,
+            backgroundColor: Colors.pink.shade500,
+            elevation: 12,
             tooltip: 'Decrement',
+            onPressed: () => _decrementCounter(context),
             child: const Icon(Icons.remove),
           ),
         ],
