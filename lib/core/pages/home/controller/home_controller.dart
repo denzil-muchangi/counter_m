@@ -1,24 +1,38 @@
-import 'package:flutter/foundation.dart';
-import '../models/counter_model.dart';
+import 'package:flutter/material.dart';
+import '../models/multi_counter_model.dart';
 
 class HomeController extends ChangeNotifier {
-  final CounterModel model = CounterModel();
+  final MultiCounterNotifier model = MultiCounterNotifier();
 
-  void incrementCounter() {
-    model.increment();
+  void showAddDialog(BuildContext context) {
+    final controller = TextEditingController();
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('New Counter'),
+        content: TextField(
+          controller: controller,
+          decoration: const InputDecoration(hintText: 'e.g., Coffee, Pushups'),
+          autofocus: true,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              model.addCounter(controller.text);
+              Navigator.pop(ctx);
+            },
+            child: const Text('Add'),
+          ),
+        ],
+      ),
+    );
   }
 
-  void resetCounter() {
-    model.reset();
-  }
-
-  void decrementCounter() {
-    model.decrement();
-  }
-
-  @override
-  void dispose() {
-    model.dispose();
-    super.dispose();
+  void reorder(List<String> order) {
+    model.reorderItems(order);
   }
 }

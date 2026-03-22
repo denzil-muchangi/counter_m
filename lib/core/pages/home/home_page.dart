@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'controller/home_controller.dart';
 import 'widgets/body/home_body.dart';
 import 'widgets/buttons/counter_buttons.dart';
+import '../settings/settings_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.title});
@@ -36,24 +37,23 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(widget.title),
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.transparent, Colors.white24],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
+        bottom: const TabBar(
+          tabs: [
+            Tab(icon: Icon(Icons.history), text: 'Recent'),
+            Tab(icon: Icon(Icons.list), text: 'All'),
+          ],
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () => Navigator.of(
+              context,
+            ).push(MaterialPageRoute(builder: (_) => const SettingsPage())),
+          ),
+        ],
       ),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Color(0xFF667eea), Color(0xFF764ba2)],
-          ),
-        ),
+      body: DefaultTabController(
+        length: 2,
         child: SafeArea(child: HomeBody(controller: controller)),
       ),
       floatingActionButton: Padding(

@@ -1,15 +1,1 @@
-# Mobile UI/UX Optimization - COMPLETE ✅
-
-All UI files updated for mobile responsiveness:
-- Dynamic paddings/margins based on screen width (MediaQuery)
-- Adaptive TextField width with clamp(80-120)
-- Wrap layout for buttons on small screens with dynamic spacing clamp(16-32)
-- Responsive FAB padding
-- SafeArea, resizeToAvoidBottomInset added
-- FABs use extended for better labels/touch areas (FABs inherently >=56dp)
-- `flutter analyze`: No issues found!
-
-**To test:** Run `flutter run` on mobile emulator/device (try small screen like Pixel 3a).
-
-Changes follow M3 guidelines for touch targets, responsiveness without new deps.
-
+# Counter Switching Feature TODO&#10;&#10;## Done ✓&#10;- [x] 1. Extended multi_counter_model.dart (lastActive, recent/all/reorder/activity tracking/migration)&#10;- [x] 2. Created CounterDetailPage.dart (full-screen focus with swipe switch)&#10;- [x] 3. Updated home_controller.dart (reorder)&#10;- [x] 4. Updated home_page.dart (DefaultTabController + TabBar Recent/All)&#10;- [x] 5. Added import counter_detail_page in home_body.dart&#10;&#10;## In Progress ⏳&#10;- [ ] 6. Major refactor home_body.dart (TabBarView with ReorderableListView allItems, ListView recentItems, compact tappable cards to detail)&#10;&#10;## Remaining&#10;- [ ] 7. Test: flutter run, add counters, verify switching/reorder/swipe/persist&#10;- [ ] 8. Complete task
